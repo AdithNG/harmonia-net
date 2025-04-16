@@ -4,6 +4,15 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+import torch
+import torch.nn as nn
+import torch.optim as optim
+import torch.nn.functional as F
+
+# Running on GPU
+print(torch.cuda.is_available())
+print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA GPU found")
+
 # Load data from the csv file into a pandas DataFrame
 df = pd.read_csv("hf://datasets/maharshipandya/spotify-tracks-dataset/dataset.csv")
 
@@ -57,3 +66,23 @@ plt.title('Average Popularity by Genre')
 plt.xlabel('Popularity Index')
 plt.ylabel('Genre')
 plt.show()
+
+#class HarmoniaNet(nn.Module):
+def __init__(self):
+    super().__init__()
+    self.flatten = nn.Flatten()
+    self.linear_relu_stack = nn.Sequential(
+        nn.Linear(21, 120),
+        nn.ReLU(),
+        nn.Linear(120, 240),
+        nn.ReLU(),
+        nn.Linear(240, 2),
+        nn.ReLU()
+        nn.SoftMax()
+    )
+
+def forward(self, x):
+
+    x = self.flatten(x)
+    logits = self.linear_relu_stack(x)
+    return logits
