@@ -6,6 +6,8 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import os
+import seaborn as sns
+
 from collections import defaultdict
 from torchvision.utils import save_image 
 from torchvision import transforms,datasets
@@ -20,6 +22,7 @@ import pandas as pd
 # Running on GPU
 print(torch.cuda.is_available())
 print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA GPU found")
+
 
 # Load data from the csv file into a pandas DataFrame
 df = pd.read_csv("hf://datasets/maharshipandya/spotify-tracks-dataset/dataset.csv")
