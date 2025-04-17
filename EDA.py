@@ -11,7 +11,7 @@ df = pd.read_csv("hf://datasets/maharshipandya/spotify-tracks-dataset/dataset.cs
 df.columns = df.columns.str.strip()
 
 # Print the table
-print(df)
+print(df)   
 
 # Seperate and section off the data by putting it in a nested dataframe
 numeric_cols = [
@@ -25,7 +25,7 @@ numeric_cols = [
     "instrumentalness",
     "liveness",
     "valence",
-    "tempo"]
+    "tempo"]    
 numeric_df = df[numeric_cols]
 # Create a figure to visualise the correlation between the numerical and catagorical features of the dataset
 plt.figure(figsize=(12, 10))
