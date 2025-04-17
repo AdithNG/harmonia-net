@@ -119,7 +119,7 @@
 
 ## 📊 8. Model Evaluation
 
-- After training HarmoniaNet for 60 epochs, the model achieved the following overall results:
+- After training HarmoniaNet for 500 epochs, the model achieved the following overall results:
 
   - **Test Accuracy**: **65%**
   - **Macro-Averaged F1 Score**: **0.65**
