@@ -54,7 +54,7 @@
   Chosen for its adaptive learning rate and efficient convergence.
 
 - **Epoch-Based Training Loop**  
-  Trained the model for 60 epochs and printed loss per epoch.
+  Trained the model for 500 epochs and printed loss per epoch.
 
 - **Training Loss Tracking**  
   Collected loss values in a list and plotted a **training loss curve** using `matplotlib` to visualize model convergence.
