@@ -1,17 +1,28 @@
 # Import packages
 import numpy as np
-import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
+import os
+import seaborn as sns
+
+from collections import defaultdict
+from torchvision.utils import save_image 
+from torchvision import transforms,datasets
+from torch.utils.data import Dataset
+from torch.utils.data import DataLoader
+from PIL import Image
+from torchsummary import summary
+from sklearn.model_selection import train_test_split
+from sklearn.cluster import KMeans
+import pandas as pd
 
 # Running on GPU
 print(torch.cuda.is_available())
 print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else "No CUDA GPU found")
+
 
 # Load data from the csv file into a pandas DataFrame
 df = pd.read_csv("hf://datasets/maharshipandya/spotify-tracks-dataset/dataset.csv")
@@ -20,7 +31,7 @@ df = pd.read_csv("hf://datasets/maharshipandya/spotify-tracks-dataset/dataset.cs
 df.columns = df.columns.str.strip()
 
 # Print the table
-print(df)
+print(df)   
 
 # Seperate and section off the data by putting it in a nested dataframe
 numeric_cols = [
@@ -34,7 +45,7 @@ numeric_cols = [
     "instrumentalness",
     "liveness",
     "valence",
-    "tempo"]
+    "tempo"]    
 numeric_df = df[numeric_cols]
 # Create a figure to visualise the correlation between the numerical and catagorical features of the dataset
 plt.figure(figsize=(12, 10))
@@ -67,19 +78,19 @@ plt.xlabel('Popularity Index')
 plt.ylabel('Genre')
 plt.show()
 
-#class HarmoniaNet(nn.Module):
-def __init__(self):
-    super().__init__()
-    self.flatten = nn.Flatten()
-    self.linear_relu_stack = nn.Sequential(
-        nn.Linear(21, 120),
-        nn.ReLU(),
-        nn.Linear(120, 240),
-        nn.ReLU(),
-        nn.Linear(240, 2),
-        nn.ReLU()
-        nn.SoftMax()
-    )
+class HarmoniaNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.linear_relu_stack = nn.Sequential(
+            nn.Linear(21, 120),
+            nn.ReLU(),
+            nn.Linear(120, 240),
+            nn.ReLU(),
+            nn.Linear(240, 2),
+            nn.ReLU(),
+            nn.SoftMax()
+        )
 
 def forward(self, x):
 
