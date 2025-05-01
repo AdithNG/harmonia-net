@@ -1,0 +1,5 @@
+temp.wav
+__pycache__/
+*.pyc
+uploads/
+logs/

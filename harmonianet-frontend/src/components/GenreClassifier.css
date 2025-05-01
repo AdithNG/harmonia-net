@@ -1,0 +1,142 @@
+.genre-classifier {
+    max-width: 550px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .genre-classifier input {
+    margin-bottom: 1rem;
+  }
+  
+  .genre-classifier button {
+    background-color: #4f46e5;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .genre-classifier button:disabled {
+    background-color: #999;
+    cursor: not-allowed;
+  }
+  
+  .genre-classifier button:hover:enabled {
+    background-color: #4338ca;
+  }
+  
+  .progress-bar {
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+  
+  .progress-fill {
+    width: 100%;
+    height: 100%;
+    background-color: #4f46e5;
+    animation: loading 1s infinite alternate;
+  }
+  
+  @keyframes loading {
+    0% {
+      width: 20%;
+    }
+    100% {
+      width: 90%;
+    }
+  }
+  
+  .top-prediction {
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    background-color: #e0f2fe;
+    border-left: 4px solid #2563eb;
+    border-radius: 8px;
+    text-align: left;
+  }
+  
+  .top-prediction span {
+    font-weight: bold;
+    color: #1d4ed8;
+  }
+  
+  .results {
+    margin-top: 1.5rem;
+    text-align: left;
+  }
+  
+  .results ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .results li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .feedback-section {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .feedback-section button {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .feedback-section button:first-of-type {
+    background-color: #10b981;
+    color: white;
+  }
+  
+  .feedback-section button:last-of-type {
+    background-color: #ef4444;
+    color: white;
+  }
+  
+  .reset-button {
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #facc15;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1e293b;
+    transition: background-color 0.3s ease;
+  }
+  
+  .reset-button:hover {
+    background-color: #fbbf24;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 1rem;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 1.2rem;
+    text-align: center;
+    animation: fadeSlide 0.6s ease-in-out;
+  }
+  
