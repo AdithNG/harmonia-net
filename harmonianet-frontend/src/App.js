@@ -15,7 +15,8 @@ function App() {
           <Route path="/predict" element={<Predict />} />
         </Routes>
         <footer className="site-footer">
-          <p>Made with ❤️ by Team HarmoniaNet</p>
+          <p>Made with ❤️ for CMSC 475 Neural Networks </p>
+          <p>Made by Team HarmoniaNet</p>
         </footer>
       </div>
     </Router>
