@@ -55,8 +55,7 @@ def predict():
 
 if __name__ == '__main__':
     # This block is unused when deploying with Gunicorn
-    '''
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-    '''
-    pass
+    
+    
