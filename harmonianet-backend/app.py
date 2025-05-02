@@ -19,7 +19,7 @@ model.load_state_dict(torch.load('harmonianet.pth', map_location=torch.device('c
 model.eval()
 
 def extract_mel(path, sr=22050, n_mels=128, fixed_len=1280):
-    y, _ = librosa.load(path, sr=sr, duration=10)
+    y, _ = librosa.load(path, sr=sr, duration=30)
     mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=n_mels)
     mel_db = librosa.power_to_db(mel, ref=np.max)
 
