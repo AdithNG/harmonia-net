@@ -33,42 +33,11 @@ def extract_mel(path, sr=22050, n_mels=128, fixed_len=1280):
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    print("Starting prediction...")
+    print("Starting test route...", flush=True)
+    print("Memory after file read (MB):", psutil.Process().memory_info().rss / 1024**2, flush=True)
 
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file'}), 400
+    return jsonify({'test': True})
 
-    file = request.files['file']
-    audio_bytes = BytesIO(file.read())
-
-    try:
-        print("Memory after file read (MB):", psutil.Process().memory_info().rss / 1024**2)
-
-        y, sr = librosa.load(audio_bytes, sr=22050, duration=30)
-        mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
-        mel_db = librosa.power_to_db(mel, ref=np.max)
-
-        if mel_db.shape[1] < 1280:
-            mel_db = np.pad(mel_db, ((0, 0), (0, 1280 - mel_db.shape[1])), mode='constant')
-        else:
-            mel_db = mel_db[:, :1280]
-
-        input_tensor = torch.tensor(mel_db).unsqueeze(0).unsqueeze(0).float()
-
-        print("Memory after preprocessing (MB):", psutil.Process().memory_info().rss / 1024**2)
-
-        with torch.no_grad():
-            output = model(input_tensor)
-            probs = torch.softmax(output, dim=1).numpy()[0]
-            result = {idx_to_genre[i]: float(p) for i, p in enumerate(probs)}
-
-        print("Memory after prediction (MB):", psutil.Process().memory_info().rss / 1024**2)
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-    print("Finished prediction.")
-    return jsonify(result)
 
 @app.route('/', methods=['HEAD'])
 def index():
