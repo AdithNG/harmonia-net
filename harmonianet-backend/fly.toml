@@ -15,6 +15,11 @@ primary_region = 'iad'
   min_machines_running = 1       # <- always keep one running
   processes = ['app']
 
+[http_service.headers]
+  Access-Control-Allow-Origin = "*"
+  Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+  Access-Control-Allow-Headers = "*"
+
 [[vm]]
   memory = '1gb'
   cpu_kind = 'shared'
