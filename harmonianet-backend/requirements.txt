@@ -1,6 +1,6 @@
+fastapi
+uvicorn
 torch
-flask
-flask-cors
 librosa
 numpy
 psutil
