@@ -41,6 +41,7 @@ function GenreClassifier() {
 
       if (!response.ok) throw new Error('Server error');
       const data = await response.json();
+      if (data.error) throw new Error(data.error);
 
       setStatusMessage('Prediction complete!');
       setResults(data);
