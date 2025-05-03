@@ -3,5 +3,4 @@ flask
 flask-cors
 librosa
 numpy
-gunicorn
 psutil
