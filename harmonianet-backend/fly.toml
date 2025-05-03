@@ -1,8 +1,3 @@
-# fly.toml app configuration file generated for harmonianet-app on 2025-05-02T23:54:16-04:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'harmonianet-app'
 primary_region = 'iad'
 
@@ -15,9 +10,9 @@ primary_region = 'iad'
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = false     # <- don't let it sleep
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1       # <- always keep one running
   processes = ['app']
 
 [[vm]]
