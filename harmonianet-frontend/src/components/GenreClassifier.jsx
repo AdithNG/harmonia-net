@@ -136,7 +136,7 @@ function GenreClassifier() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <button>📋 Give Feedback on "{topGenre}"</button>
+                  <button>📋 Give Feedback on Prediction: "{topGenre}"</button>
                 </a>
               </div>
             )}
