@@ -12,13 +12,20 @@ from utils import genre_to_idx, idx_to_genre
 
 app = FastAPI()
 
+origins = [
+    "https://harmonia-net.vercel.app",  # your deployed frontend
+    "http://localhost:3000"             # local dev (optional)
+]
+
 # Enable CORS for frontend access
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,              # use explicit list, not "*"
+    allow_credentials=True,             # important for cookies/auth if needed
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 # Load model once
 model = GenreCNN(num_classes=len(genre_to_idx))
