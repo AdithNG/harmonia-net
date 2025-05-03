@@ -1,163 +1,76 @@
-# 🧠 Techniques & Methods Used in HarmoniaNet
+# 🎵 HarmoniaNet
+
+_A Neural Network-Based Music Genre Classifier_
 
 ---
 
-## 📊 1. Exploratory Data Analysis (EDA)
+## 🚀 Overview
 
-- **Correlation Heatmap**  
-  Used `seaborn` to visualize relationships between numerical features like `energy`, `acousticness`, `tempo`, etc.  
-  Helped identify which features are most related and whether any were redundant.
-
-- **Genre-Wise Aggregation**  
-  Grouped the dataset by `track_genre` to compute the average popularity and other features for each genre.  
-  Visualized using a bar chart to understand how genres differ on average.
+HarmoniaNet is a full-stack web application that predicts the genre of uploaded audio tracks using a convolutional neural network trained on raw audio features. Users can contribute feedback to improve the model by verifying predictions via a Google Form.
 
 ---
 
-## 🧹 2. Data Preprocessing
+## 🌟 Features
 
-- **Top 10 Genre Selection**  
-  Simplified the classification task by selecting the 10 most frequent genres in the dataset.
-
-- **Label Encoding**  
-  Converted genre names to numeric labels using `LabelEncoder` for compatibility with PyTorch models.
-
-- **Feature Normalization**  
-  Scaled numerical features using `StandardScaler` to ensure they were on the same scale and improve training stability.
-
-- **Train-Test Split (Stratified)**  
-  Split the data using `train_test_split` with `stratify=y` to maintain equal genre representation across training and testing sets.
+- 🎧 Upload music tracks and receive genre predictions
+- ⚡ Real-time processing using a PyTorch CNN model
+- 🧠 Trained on raw audio spectrograms (FMA dataset)
+- 🌍 Backend hosted on **Fly.io**, frontend on **Vercel**
+- 📋 Integrated Google Form for user feedback
+- 🔄 Live feedback loop to improve model accuracy
+- 🔐 CORS configured and memory-optimized for deployment
+- 🕓 Uptime maintained using Uptime Robot
 
 ---
 
-## 🔧 3. PyTorch Model Building
+## 🛠 Tech Stack
 
-- **Neural Network Architecture (`HarmoniaNet`)**
-
-  - Input layer → 256 hidden units
-  - Hidden layer → 512 hidden units
-  - ReLU activation functions
-  - Dropout layers (0.3) to prevent overfitting
-  - Output layer with 10 neurons (for 10 genres)
-
-- **GPU Acceleration**  
-  Detected and used GPU with `torch.device("cuda")` to speed up training.
+| Layer      | Tech Used                        |
+| ---------- | -------------------------------- |
+| Frontend   | React, Framer Motion, Vercel     |
+| Backend    | FastAPI, Python, PyTorch, Docker |
+| ML Model   | CNN (Mel spectrogram-based)      |
+| Hosting    | Fly.io (1GB VM)                  |
+| Feedback   | Google Forms + Sheets            |
+| Monitoring | Uptime Robot                     |
 
 ---
 
-## 🏋️ 4. Model Training
+## 🔁 Workflow
 
-- **Loss Function**: `CrossEntropyLoss`  
-  Suitable for multi-class classification problems.
-
-- **Optimizer**: `Adam`  
-  Chosen for its adaptive learning rate and efficient convergence.
-
-- **Epoch-Based Training Loop**  
-  Trained the model for 500 epochs and printed loss per epoch.
-
-- **Training Loss Tracking**  
-  Collected loss values in a list and plotted a **training loss curve** using `matplotlib` to visualize model convergence.
+1. User uploads an audio file (MP3/WAV)
+2. The backend extracts Mel spectrograms
+3. A CNN model classifies the audio into one of 15 genres
+4. The frontend shows:
+   - Top prediction with confidence
+   - Probability breakdown
+   - A **Google Form link** with the prediction pre-filled
+5. User selects the correct genre and submits the form
 
 ---
 
-## 🧪 5. Evaluation Techniques
+## 📝 Google Form Integration
 
-- **Accuracy**  
-  Computed the proportion of correct predictions on the test set.
-
-- **Classification Report**  
-  Used `sklearn.metrics.classification_report` to get precision, recall, and F1-score per genre.
-
-- **Confusion Matrix**  
-  Visualized with a heatmap using `seaborn` to identify genre-specific strengths and common misclassifications.
+- **Question 1**: Auto-collected email
+- **Question 2**: Pre-filled predicted genre (multiple choice)
+- **Question 3**: User-selected correct genre (same 15-option list)
+- **Responses**: Synced live to Google Sheets
 
 ---
 
-## 📚 6. Dataset Overview
+## 📊 Data Collection and Evaluation
 
-- The dataset contains **metadata for thousands of Spotify tracks** including:
+Once responses are collected:
 
-  - Popularity
-  - Tempo
-  - Loudness
-  - Energy
-  - Acousticness
-  - Danceability
-  - Instrumentalness
-  - Speechiness
-  - Liveness
-  - Valence
-  - Duration
-
-- These features are **audio-derived descriptors**, not raw audio, allowing for fast processing and lightweight modeling.
-
-- We used the **top 10 most common genres** from the dataset to ensure balance and avoid sparsity.
-
-- Each genre had **200 test samples**, making the classification report directly comparable across classes.
+- Export as CSV from Google Sheets
+- Analyze accuracy with Python or Excel
+- Compare predicted vs actual to generate confusion matrices
+- Use data to retrain and fine-tune the model
 
 ---
 
-## 🎧 7. Observations on Key Features
+## 📬 Contact
 
-- **Energy vs Loudness**:  
-  These two features had a **strong positive correlation (~0.76)**, confirming that louder songs are often more energetic — especially common in genres like **black-metal** and **afrobeat**.
-
-- **Acousticness**:  
-  Genres like **acoustic**, **ambient**, and **bluegrass** showed significantly higher average acousticness values, helping the model distinguish them from more produced or electronic genres.
-
-- **Danceability and Tempo**:  
-  Genres with rhythmic focus such as **afrobeat** and **brazil** had higher danceability and tempo values, aligning with cultural expectations for these styles.
-
-- **Instrumentalness**:  
-  Genres like **ambient** and **bluegrass** tended to score higher here, which likely contributed to their relatively high precision and recall.
-
-- **Valence and Emotion**:  
-  Valence, which measures musical positivity, varied widely across genres. **Anime** and **brazil** tended toward higher valence, while **black-metal** was consistently low — this may have helped the model capture emotional tone in genre classification.
+Questions, suggestions, or feedback? Submit them through the feedback form or reach out directly.
 
 ---
-
-## 📊 8. Model Evaluation
-
-- After training HarmoniaNet for 500 epochs, the model achieved the following overall results:
-
-  - **Test Accuracy**: **65%**
-  - **Macro-Averaged F1 Score**: **0.65**
-  - **Weighted-Averaged F1 Score**: **0.65**
-
-- These scores indicate balanced performance across all 10 genres, with no single class dominating model attention.
-
-### 🔹 Best Performing Genres
-
-| Genre           | Precision | Recall   | F1-Score |
-| --------------- | --------- | -------- | -------- |
-| **Black-metal** | **0.92**  | **0.92** | **0.92** |
-| **Ambient**     | **0.83**  | **0.80** | **0.81** |
-| **Bluegrass**   | **0.78**  | **0.83** | **0.80** |
-| **Afrobeat**    | **0.81**  | **0.74** | **0.77** |
-
-- These genres likely performed well due to distinctive characteristics in features like **energy**, **instrumentalness**, and **acousticness**.
-- The confusion matrix confirms that these classes are predicted accurately with minimal overlap with others.
-
-### 🔸 Most Challenging Genres
-
-| Genre           | Precision | Recall   | F1-Score |
-| --------------- | --------- | -------- | -------- |
-| **Alt-rock**    | **0.30**  | **0.28** | **0.29** |
-| **Alternative** | **0.40**  | **0.50** | **0.44** |
-| **Blues**       | **0.67**  | **0.49** | **0.57** |
-
-- **Alt-rock and alternative** were frequently confused with each other. For instance:
-  - 99 alt-rock tracks were predicted as alternative.
-  - 72 alternative tracks were predicted as alt-rock.
-- These genres likely have overlapping audio characteristics (mid-range tempo, energy, or valence), making them difficult to distinguish using metadata alone.
-- **Blues** showed moderate precision but low recall, suggesting the model tends to underpredict this class or confuses it with similar acoustic genres.
-
-### 🔍 Confusion Matrix Patterns
-
-- The confusion matrix showed **strong diagonal dominance**, especially for black-metal, ambient, and bluegrass — indicating clear genre separation.
-- Only a few genres showed heavy off-diagonal overlap, such as alt-rock and alternative.
-
-### 🧠 Insight
-
-These results demonstrate that metadata-based genre classification is feasible, especially for genres with clear audio characteristics. However, more nuanced genres may require **richer feature inputs**, such as spectrograms or lyrics, to improve precision and reduce genre confusion.
