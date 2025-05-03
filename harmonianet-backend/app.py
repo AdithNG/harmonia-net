@@ -66,6 +66,6 @@ async def predict(file: UploadFile = File(...)):
 async def root():
     return {"message": "HarmoniaNet is live"}
 
-@app.head("/")
-async def head_check():
+@app.head("/predict")
+async def predict_head():
     return JSONResponse(content=None, status_code=200)
