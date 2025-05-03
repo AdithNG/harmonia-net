@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import torch
-import torchaudio
 import librosa
 import numpy as np
+from io import BytesIO
 import os
 
 # Load model architecture
@@ -33,24 +33,35 @@ def extract_mel(path, sr=22050, n_mels=128, fixed_len=1280):
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    print("Starting prediction...")
+
     if 'file' not in request.files:
         return jsonify({'error': 'No file'}), 400
 
     file = request.files['file']
-    temp_path = "temp.wav"
-    file.save(temp_path)
+    audio_bytes = BytesIO(file.read())
 
     try:
-        input_tensor = extract_mel(temp_path)
+        y, sr = librosa.load(audio_bytes, sr=22050, duration=30)
+        mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
+        mel_db = librosa.power_to_db(mel, ref=np.max)
+
+        if mel_db.shape[1] < 1280:
+            mel_db = np.pad(mel_db, ((0, 0), (0, 1280 - mel_db.shape[1])), mode='constant')
+        else:
+            mel_db = mel_db[:, :1280]
+
+        input_tensor = torch.tensor(mel_db).unsqueeze(0).unsqueeze(0).float()
+
         with torch.no_grad():
             output = model(input_tensor)
             probs = torch.softmax(output, dim=1).numpy()[0]
             result = {idx_to_genre[i]: float(p) for i, p in enumerate(probs)}
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-    finally:
-        os.remove(temp_path)
 
+    print("Finished prediction.")
     return jsonify(result)
 
 @app.route('/', methods=['HEAD'])
@@ -59,7 +70,9 @@ def index():
 
 if __name__ == '__main__':
     # This block is unused when deploying with Gunicorn
+    '''
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
-    
+    '''
+    pass
     

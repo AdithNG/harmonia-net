@@ -1,11 +1,6 @@
 torch
-torchaudio
-torchvision
 flask
 flask-cors
 librosa
 numpy
-scikit-learn
-matplotlib
-tqdm
 gunicorn
