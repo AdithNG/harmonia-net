@@ -128,6 +128,10 @@ function GenreClassifier() {
               </ul>
             </div>
 
+            <button className="reset-button" onClick={reset}>
+              🔁 Choose Another File
+            </button>
+            
             {!feedbackSent && (
               <div className="feedback-section">
                 <p>Help us improve by verifying the prediction:</p>
@@ -141,9 +145,7 @@ function GenreClassifier() {
               </div>
             )}
 
-            <button className="reset-button" onClick={reset}>
-              🔁 Choose Another File
-            </button>
+            
           </motion.div>
         );
       })()}
