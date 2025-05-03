@@ -32,7 +32,7 @@ function GenreClassifier() {
     setStatusMessage('Uploading audio file...');
 
     try {
-      const response = await fetch('https://harmonia-net.onrender.com/predict', {
+      const response = await fetch('https://harmonianet-app.fly.dev/predict', {
         method: 'POST',
         body: formData,
       });
@@ -51,6 +51,7 @@ function GenreClassifier() {
     } finally {
       setLoading(false);
     }
+    
   };
 
   const handleFeedback = (correct) => {
