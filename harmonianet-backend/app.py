@@ -4,7 +4,7 @@ import torch
 import librosa
 import numpy as np
 from io import BytesIO
-import os
+import psutil
 
 # Load model architecture
 from model import GenreCNN  # You’ll define this exactly like in Colab
@@ -42,6 +42,8 @@ def predict():
     audio_bytes = BytesIO(file.read())
 
     try:
+        print("Memory after file read (MB):", psutil.Process().memory_info().rss / 1024**2)
+
         y, sr = librosa.load(audio_bytes, sr=22050, duration=30)
         mel = librosa.feature.melspectrogram(y=y, sr=sr, n_mels=128)
         mel_db = librosa.power_to_db(mel, ref=np.max)
@@ -53,10 +55,14 @@ def predict():
 
         input_tensor = torch.tensor(mel_db).unsqueeze(0).unsqueeze(0).float()
 
+        print("Memory after preprocessing (MB):", psutil.Process().memory_info().rss / 1024**2)
+
         with torch.no_grad():
             output = model(input_tensor)
             probs = torch.softmax(output, dim=1).numpy()[0]
             result = {idx_to_genre[i]: float(p) for i, p in enumerate(probs)}
+
+        print("Memory after prediction (MB):", psutil.Process().memory_info().rss / 1024**2)
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
