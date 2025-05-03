@@ -40,7 +40,7 @@ HarmoniaNet is a full-stack web application that predicts the genre of uploaded 
 
 1. User uploads an audio file (MP3/WAV)
 2. The backend extracts Mel spectrograms
-3. A CNN model classifies the audio into one of 15 genres
+3. A CNN model classifies the audio into one of 16 genres
 4. The frontend shows:
    - Top prediction with confidence
    - Probability breakdown
@@ -53,7 +53,7 @@ HarmoniaNet is a full-stack web application that predicts the genre of uploaded 
 
 - **Question 1**: Auto-collected email
 - **Question 2**: Pre-filled predicted genre (multiple choice)
-- **Question 3**: User-selected correct genre (same 15-option list)
+- **Question 3**: User-selected correct genre (same 16-option list)
 - **Responses**: Synced live to Google Sheets
 
 ---
