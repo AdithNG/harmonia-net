@@ -130,9 +130,14 @@ function GenreClassifier() {
 
             {!feedbackSent && (
               <div className="feedback-section">
-                <p>Was this classification correct?</p>
-                <button onClick={() => handleFeedback(true)}>👍 Yes</button>
-                <button onClick={() => handleFeedback(false)}>👎 No</button>
+                <p>Help us improve by verifying the prediction:</p>
+                <a
+                  href={`https://docs.google.com/forms/d/e/1FAIpQLSckxcPyCDrJ9kws1UKMRAfHlJ51iHwED1JsczdnlYCqQ3saGw/viewform?usp=pp_url&entry.1950986550=${encodeURIComponent(topGenre)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button>📋 Give Feedback on "{topGenre}"</button>
+                </a>
               </div>
             )}
 
