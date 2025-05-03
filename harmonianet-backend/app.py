@@ -53,6 +53,10 @@ def predict():
 
     return jsonify(result)
 
+@app.route('/', methods=['HEAD'])
+def index():
+    return '', 200
+
 if __name__ == '__main__':
     # This block is unused when deploying with Gunicorn
     port = int(os.environ.get("PORT", 10000))

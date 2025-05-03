@@ -140,3 +140,10 @@
     animation: fadeSlide 0.6s ease-in-out;
   }
   
+  .status-message {
+    margin-top: 10px;
+    font-style: italic;
+    color: #555;
+    animation: fadeIn 0.3s ease-in;
+  }
+  

@@ -8,6 +8,7 @@ function GenreClassifier() {
   const [results, setResults] = useState(null);
   const [error, setError] = useState('');
   const [feedbackSent, setFeedbackSent] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
   const fileInputRef = useRef();
 
   const handleFileChange = (e) => {
@@ -15,6 +16,7 @@ function GenreClassifier() {
     setResults(null);
     setError('');
     setFeedbackSent(false);
+    setStatusMessage('');
   };
 
   const handleSubmit = async (e) => {
@@ -23,22 +25,29 @@ function GenreClassifier() {
 
     const formData = new FormData();
     formData.append('file', file);
+
     setLoading(true);
     setError('');
     setResults(null);
+    setStatusMessage('Uploading audio file...');
 
     try {
-      const response = await fetch('http://localhost:5000/predict', {
+      const response = await fetch('https://harmonia-net.onrender.com/predict', {
         method: 'POST',
         body: formData,
       });
 
+      setStatusMessage('Processing audio and generating prediction...');
+
       if (!response.ok) throw new Error('Server error');
       const data = await response.json();
+
+      setStatusMessage('Prediction complete!');
       setResults(data);
     } catch (err) {
       console.error('Error:', err);
       setError('Prediction failed. Please try again.');
+      setStatusMessage('');
     } finally {
       setLoading(false);
     }
@@ -54,6 +63,7 @@ function GenreClassifier() {
     setResults(null);
     setError('');
     setFeedbackSent(false);
+    setStatusMessage('');
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -78,6 +88,8 @@ function GenreClassifier() {
           {loading ? 'Analyzing...' : 'Predict Genre'}
         </button>
       </form>
+
+      {statusMessage && <p className="status-message">{statusMessage}</p>}
 
       {loading && (
         <div className="progress-bar">
