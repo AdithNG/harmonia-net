@@ -4,6 +4,9 @@ _A Neural Network-Based Music Genre Classifier_
 
 ---
 
+[🌐 Try it out here](https://harmonia-net.vercel.app/)
+
+
 ## 🚀 Overview
 
 HarmoniaNet is a full-stack web application that predicts the genre of uploaded audio tracks using a convolutional neural network trained on raw audio features. Users can contribute feedback to improve the model by verifying predictions via a Google Form.
