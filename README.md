@@ -1,10 +1,8 @@
 # 🎵 HarmoniaNet
 
-_A Neural Network-Based Music Genre Classifier_
+_A Neural Network-Based Music Genre Classifier_ [🌐 Try it out here](https://harmonia-net.vercel.app/)
 
 ---
-
-[🌐 Try it out here](https://harmonia-net.vercel.app/)
 
 
 ## 🚀 Overview
