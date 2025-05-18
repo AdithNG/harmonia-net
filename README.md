@@ -1,6 +1,6 @@
 # 🎵 HarmoniaNet
 
-[🌐 Try it out here](https://harmonia-net.vercel.app/)
+[🌐 Try it out here - HarmoniaNet](https://harmonia-net.vercel.app/)
 
 _A Neural Network-Based Music Genre Classifier_ 
 ---
