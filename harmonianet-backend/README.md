@@ -1,6 +1,6 @@
 # 🎛️ harmonianet-backend
 
-This is the backend service for HarmoniaNet — a music genre classification app built using FastAPI and PyTorch. It handles audio file uploads, converts them into mel spectrograms, and uses a pretrained CNN model to predict the music genre.
+This is the backend service for HarmoniaNet - a music genre classification app built using FastAPI and PyTorch. It handles audio file uploads, converts them into mel spectrograms, and uses a pretrained CNN model to predict the music genre.
 
 ---
 
